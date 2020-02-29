@@ -1,12 +1,12 @@
-# react-template
+# Pet's finder
 
 this is react structure made manually
 
 ## installation in terminal
 
 ```json
-    -- git clone "https://github.com/MohammadAlhalaq/react-template.git"
-    -- cd react-template
+    -- git clone "https://github.com/MohammadAlhalaq/pets-finder.git"
+    -- cd pets-finder
     -- npm install
 ```
 
