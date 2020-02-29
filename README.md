@@ -1,8 +1,8 @@
 # react-template
 
-### this is react structure made manually
+this is react structure made manually
 
-#### installation in terminal
+## installation in terminal
 
 ```json
     -- git clone "https://github.com/MohammadAlhalaq/react-template.git"
@@ -10,7 +10,7 @@
     -- npm install
 ```
 
-#### Scripts
+### Scripts
 
 ```json
     -- npm run dev // to run app with parcel
