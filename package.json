@@ -9,7 +9,8 @@
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:mock": "cross-env PET-MOCK=mock parcel src/index.html",
-    "dev:build": "parcel build src/index.html --no-source-maps"
+    "dev:build": "cross-env NODE_ENV=production parcel build src/index.html --public-url ./",
+    "gh": "gh-pages -d dist"
   },
   "author": "Mohammad al-hallaq",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.5.0",
+    "gh-pages": "^2.2.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1"
   },
