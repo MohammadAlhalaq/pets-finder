@@ -33109,7 +33109,7 @@ class Details extends _react.default.Component {
 
     _defineProperty(this, "adopt", () => (0, _router.navigate)(this.state.url));
 
-    _defineProperty(this, "toggleModal", (setTheme, oldTheme) => {
+    _defineProperty(this, "toggleModal", oldTheme => {
       this.setState(prev => {
         if (this.state.counter === 4) {
           return this.setState(prev => ({
@@ -33134,7 +33134,7 @@ class Details extends _react.default.Component {
           counter: prev.counter + 1,
           showModal: !prev.showModal
         };
-      }, () => setTheme(this.state.theme));
+      });
     });
   }
 
@@ -33256,7 +33256,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35415" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39679" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
