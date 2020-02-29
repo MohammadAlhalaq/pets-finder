@@ -1,27 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Pet from "./Pet";
+import SearchParams from "./SearchParams";
+import { Router, Link } from "@reach/router";
+import Details from "./Details";
+import ThemeContext from "./ThemeContext";
 
 const App = () => {
-  // return createElement("div", {}, [
-  //   createElement("h1", {}, "Adopt me!"),
-  //   createElement(Pet, { name: "ahmed", age: 15, feild: "java" }),
-  //   createElement(Pet, {
-  //     name: "mohammad",
-  //     age: 15,
-  //     feild: "javascript"
-  //   }),
-  //   createElement(Pet, { name: "housin", age: 15, feild: "python" })
-  // ]);
-
-  // the same is that
+  const Theme = useState("black");
   return (
-    <div>
-      <h1> Adopt me!</h1>
-      <Pet name="mohammad" age={15} feild="java" />
-      <Pet name="ahmed" age={15} feild="javascript" />
-      <Pet name="hosain" age={15} feild="python" />
-    </div>
+    <ThemeContext.Provider value={Theme}>
+      <div>
+        <header>
+          <Link to="/">Adopt Me!</Link>
+          <h1> Adopt me!</h1>
+        </header>
+        <Router>
+          <Details path="/details/:id" />
+          <SearchParams path="/" />
+        </Router>
+      </div>
+    </ThemeContext.Provider>
   );
 };
 ReactDOM.render(<App />, document.getElementById("root"));
