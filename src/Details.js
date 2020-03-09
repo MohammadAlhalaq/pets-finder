@@ -1,10 +1,12 @@
 import React from "react";
 import pet from "@frontendmasters/pet";
 import Carousel from "./Carousel";
-import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
 import Modal from "./Modal";
+import ErrorBoundary from "./ErrorBoundary";
+
 import { navigate } from "@reach/router";
+
 class Details extends React.Component {
   state = {
     loading: true,
@@ -14,33 +16,7 @@ class Details extends React.Component {
     showModal: false
   };
   adopt = () => navigate(this.state.url);
-  toggleModal = (setTheme, oldTheme) => {
-    this.setState(
-      prev => {
-        if (this.state.counter === 4) {
-          return this.setState(prev => ({
-            counter: 0,
-            theme: prev.colors[0],
-            showModal: !prev.showModal
-          }));
-        }
-        const counter = this.state.counter + 1;
-        if (oldTheme === this.state.colors[counter]) {
-          return {
-            theme: prev.colors[prev.counter],
-            counter: prev.counter + 2,
-            showModal: !prev.showModal
-          };
-        }
-        return {
-          theme: prev.colors[prev.counter],
-          counter: prev.counter + 1,
-          showModal: !prev.showModal
-        };
-      },
-      () => setTheme(this.state.theme)
-    );
-  };
+  toggleModal = () => this.setState(prev => ({ showModal: !prev.showModal }));
   componentDidMount() {
     pet.animal(this.props.id).then(({ animal }) => {
       this.setState({
