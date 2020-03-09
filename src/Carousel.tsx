@@ -1,24 +1,33 @@
 import React from "react";
-class Carousel extends React.Component {
+import { Photo } from "@frontendmasters/pet";
+
+interface IProps {
+  media: Photo[];
+}
+interface IState {
+  active: number;
+  photos: string[];
+}
+
+class Carousel extends React.Component<IProps, IState> {
   state = {
     photos: [],
     active: 0
   };
-  static getDerivedStateFromProps({ media }) {
+  public static getDerivedStateFromProps({ media }: IProps) {
     let photos = ["http://placecorgi.com/600/600"];
     if (media.length) {
       photos = media.map(({ large }) => large);
     }
     return { photos };
   }
-  handleIndexClick = ({
-    target: {
-      dataset: { index }
+  public handleIndexClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!(event.target instanceof HTMLElement)) return;
+    if (event.target.dataset.index) {
+      this.setState({ active: +event.target.dataset.index });
     }
-  }) => {
-    this.setState({ active: +index });
   };
-  render() {
+  public render() {
     const { photos, active } = this.state;
     return (
       <div className="carousel">
@@ -27,7 +36,6 @@ class Carousel extends React.Component {
           <div className="carousel-smaller">
             {photos.map((photo, index) => {
               return (
-                //eslint-disable-next-line
                 <img
                   src={photo}
                   alt="animal thumbnail"
