@@ -16,4 +16,6 @@ this is react structure made manually
     -- npm run dev // to run app with parcel
     -- npm run lint // to see the recommended eslint
     -- npm run format // to format files in the folders in src
+    -- npm start // to build files and run the server
+
 ```
