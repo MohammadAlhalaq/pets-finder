@@ -1,45 +1,21 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import pet from "@frontendmasters/pet";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
-import ThemeContext from "./ThemeContext";
 import Modal from "./Modal";
 import { navigate } from "@reach/router";
 class Details extends React.Component {
   state = {
     loading: true,
-    theme: "",
     counter: 0,
     colors: ["red", "green", "blue", "yellow"],
     showModal: false
   };
   adopt = () => navigate(this.state.url);
-  toggleModal = (setTheme, oldTheme) => {
-    this.setState(
-      prev => {
-        if (this.state.counter === 4) {
-          return this.setState(prev => ({
-            counter: 0,
-            theme: prev.colors[0],
-            showModal: !prev.showModal
-          }));
-        }
-        const counter = this.state.counter + 1;
-        if (oldTheme === this.state.colors[counter]) {
-          return {
-            theme: prev.colors[prev.counter],
-            counter: prev.counter + 2,
-            showModal: !prev.showModal
-          };
-        }
-        return {
-          theme: prev.colors[prev.counter],
-          counter: prev.counter + 1,
-          showModal: !prev.showModal
-        };
-      },
-      () => setTheme(this.state.theme)
-    );
+  toggleModal = () => {
+    this.setState(prev => ({ showModal: !prev.showModal }));
   };
   componentDidMount() {
     pet.animal(this.props.id).then(({ animal }) => {
@@ -66,32 +42,21 @@ class Details extends React.Component {
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} - ${breed} - ${location}`}</h2>
-          <ThemeContext.Consumer>
-            {([theme, setTheme]) => {
-              return (
-                <button
-                  style={{ backgroundColor: theme }}
-                  onClick={() => this.toggleModal(setTheme, theme)}
-                >
-                  Adopt {name}
-                </button>
-              );
-            }}
-          </ThemeContext.Consumer>
+          <button
+            style={{ backgroundColor: this.props.theme }}
+            onClick={() => this.toggleModal()}
+          >
+            Adopt {name}
+          </button>
+
           {this.state.showModal ? (
-            <ThemeContext.Consumer>
-              {([theme, setTheme]) => (
-                <Modal>
-                  <h1>would you like to adopt ${name}</h1>
-                  <div className="buttons">
-                    <button onClick={this.adopt}>yes</button>
-                    <button onClick={() => this.toggleModal(setTheme, theme)}>
-                      no
-                    </button>
-                  </div>
-                </Modal>
-              )}
-            </ThemeContext.Consumer>
+            <Modal>
+              <h1>would you like to adopt ${name}</h1>
+              <div className="buttons">
+                <button onClick={this.adopt}>yes</button>
+                <button onClick={() => this.toggleModal()}>no</button>
+              </div>
+            </Modal>
           ) : null}
           <p>{description}</p>
         </div>
@@ -100,10 +65,13 @@ class Details extends React.Component {
   }
 }
 
+const WrapperComponent = connect(({ theme }) => ({
+  theme
+}))(Details);
 export default function DetailsWithErrorBoundary(props) {
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <WrapperComponent {...props} />
     </ErrorBoundary>
   );
 }
